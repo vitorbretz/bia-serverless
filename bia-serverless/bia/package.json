@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@codegenie/serverless-express": "^4.17.1",
     "jest": "^27.5.1",
     "sequelize-cli": "^6.2.0"
   }
