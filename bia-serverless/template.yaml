@@ -8,7 +8,8 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
+    MemorySize: 512
   Api:
     Cors:
       AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
@@ -25,11 +26,6 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        Ping:
-          Type: Api 
-          Properties:
-            Path: /api/ping
-            Method: get
         GetTarefas:
           Type: Api 
           Properties:
@@ -66,6 +62,12 @@ Resources:
           DB_PWD: 4HVCbGO1iaxHBU0fJzLJ
           DB_HOST: db-lambda.cgrawk6w02jf.us-east-1.rds.amazonaws.com
           DB_PORT: 5432
+      VpcConfig:  
+        SecurityGroupIds:
+          - sg-019f0b64bb4dbc460
+        SubnetIds:
+          - subnet-0c1cb898e60aac2e5
+          - subnet-00a88060f765022e9       
     Metadata:
       BuildMethod: makefile
 
