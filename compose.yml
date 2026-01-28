@@ -1,7 +1,7 @@
 services:
   server:
     networks:
-      - serveless
+      - serverless
     build: .
     image: bia_server:latest
     container_name: bia
@@ -29,7 +29,7 @@ services:
     #   start_period: 5s     
   database:
     networks:
-      - serveless
+      - serverless
     image: postgres:17.1
     container_name: database
     environment:
@@ -41,7 +41,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 networks:
-  serveless:
+  serverless:
     name: bia_serverless
     driver: bridge
 

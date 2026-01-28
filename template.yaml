@@ -59,8 +59,8 @@ Resources:
       Environment:
         Variables:
           DB_USER: postgres
-          DB_PWD: 4HVCbGO1iaxHBU0fJzLJ
-          DB_HOST: db-lambda.cgrawk6w02jf.us-east-1.rds.amazonaws.com
+          DB_PWD: FZtDqBArdLkC32NEXRrj
+          DB_HOST: database-bia-serverless.cgrawk6w02jf.us-east-1.rds.amazonaws.com 
           DB_PORT: 5432
       VpcConfig:  
         SecurityGroupIds:
