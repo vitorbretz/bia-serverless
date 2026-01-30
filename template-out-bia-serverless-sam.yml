@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: |
-  bia-serverless
+Description: 'bia-serverless
+
   Sample SAM Template for bia-serverless
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+  '
 Globals:
   Function:
     Timeout: 30
@@ -14,16 +14,15 @@ Globals:
       AllowMethods: '''GET,POST,PUT,DELETE,OPTIONS'''
       AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
       AllowOrigin: '''*'''
-
 Resources:
   TarefasFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./
+      CodeUri: s3://bia-pipeline-t1/852f7c547dd6822b36982ab654d2a7cc
       Handler: lambda.handler
       Runtime: nodejs22.x
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetTarefas:
           Type: Api
@@ -63,23 +62,27 @@ Resources:
           DB_PORT: 5432
       VpcConfig:
         SecurityGroupIds:
-          - sg-019f0b64bb4dbc460
+        - sg-019f0b64bb4dbc460
         SubnetIds:
-          - subnet-0c1cb898e60aac2e5
-          - subnet-00a88060f765022e9
+        - subnet-0c1cb898e60aac2e5
+        - subnet-00a88060f765022e9
     Metadata:
       BuildMethod: makefile
-
+      SamResourceId: TarefasFunction
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Tarefas function
-    Value: !Sub https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/api/tarefas/
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/api/tarefas/
   HelloWorldFunction:
     Description: Tarefas Lambda Function ARN
-    Value: !GetAtt TarefasFunction.Arn
+    Value:
+      Fn::GetAtt:
+      - TarefasFunction
+      - Arn
   HelloWorldFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
-    Value: !GetAtt TarefasFunctionRole.Arn
+    Value:
+      Fn::GetAtt:
+      - TarefasFunctionRole
+      - Arn
